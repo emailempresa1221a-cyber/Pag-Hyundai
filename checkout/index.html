@@ -2106,19 +2106,11 @@
             // Verificar se a URL contém 'paymentMode=boleto' ou 'boleto' como parâmetro
             if (paymentMode === 'boleto' || urlParams.get('boleto') !== null) {
                 console.log('Modo Boleto ativado');
-                // Desabilitar PIX e ativar Boleto
-                const pixOption = document.getElementById('option-pix');
                 const boletoOption = document.getElementById('option-boleto');
-                if (pixOption) pixOption.style.opacity = '0.5';
-                if (pixOption) pixOption.style.pointerEvents = 'none';
                 if (boletoOption) boletoOption.click();
             } else {
                 console.log('Modo PIX ativado (padrão)');
-                // Desabilitar Boleto e ativar PIX
-                const boletoOption = document.getElementById('option-boleto');
                 const pixOption = document.getElementById('option-pix');
-                if (boletoOption) boletoOption.style.opacity = '0.5';
-                if (boletoOption) boletoOption.style.pointerEvents = 'none';
                 if (pixOption) pixOption.click();
             }
         }
@@ -2160,7 +2152,12 @@
             if (paymentType === 'credit') {
                 showCreditCardForm();
             } else if (paymentType === 'pix') {
-                showPixCodeContent();
+                // Verificar modo de pagamento
+                if (paymentMode === 'boleto' || urlParams.get('boleto') !== null) {
+                    showPixUnavailable();
+                } else {
+                    showPixCodeContent();
+                }
             } else if (paymentType === 'boleto') {
                 // Verificar modo de pagamento
                 if (paymentMode === 'boleto' || urlParams.get('boleto') !== null) {
@@ -2449,6 +2446,32 @@
             const paymentContentWrapper = document.getElementById('paymentContentWrapper');
             const boletoContent = document.getElementById('boletoContent');
             const confirmBtn = document.getElementById('confirmBtn');
+            
+            // Atualizar mensagem de indisponibilidade se necessário
+            const boletoTitle = boletoContent.querySelector('.boleto-unavailable-title');
+            if (boletoTitle) boletoTitle.innerText = 'Forma de Pagamento Indisponível';
+            
+            boletoContent.classList.remove('hidden');
+            paymentContentWrapper.classList.add('active');
+            
+            // Mudar botão para "Voltar"
+            confirmBtn.innerText = 'Voltar';
+            confirmBtn.onclick = function() {
+                goBackToPaymentMethods();
+            };
+        }
+
+        function showPixUnavailable() {
+            hideAllContent();
+            const paymentContentWrapper = document.getElementById('paymentContentWrapper');
+            const boletoContent = document.getElementById('boletoContent'); // Usar o mesmo container de indisponibilidade
+            const confirmBtn = document.getElementById('confirmBtn');
+            
+            // Personalizar a mensagem para PIX
+            const boletoTitle = boletoContent.querySelector('.boleto-unavailable-title');
+            const boletoIcon = boletoContent.querySelector('.boleto-unavailable-icon');
+            if (boletoTitle) boletoTitle.innerText = 'PIX Indisponível';
+            if (boletoIcon) boletoIcon.innerText = '🚫';
             
             boletoContent.classList.remove('hidden');
             paymentContentWrapper.classList.add('active');
