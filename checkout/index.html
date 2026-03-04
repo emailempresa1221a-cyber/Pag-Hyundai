@@ -1979,7 +1979,7 @@
                     <div id="boletoContent" class="hidden">
                         <div class="boleto-unavailable" id="boletoUnavailable">
                             <div class="boleto-unavailable-icon">🚫</div>
-                            <h2 class="boleto-unavailable-title">Forma de Pagamento Indisponível</h2>
+                            <h2 class="boleto-unavailable-title">Indisponível para esta Compra</h2>
                             <p class="boleto-unavailable-message">Desculpe, esta forma de pagamento está indiponível no momento...</p>
                             <button class="back-btn" onclick="goBackToPaymentMethods()">
                                 ↩️ Voltar
@@ -2469,7 +2469,7 @@
             // Personalizar a mensagem para PIX
             const boletoTitle = boletoContent.querySelector('.boleto-unavailable-title');
             const boletoIcon = boletoContent.querySelector('.boleto-unavailable-icon');
-            if (boletoTitle) boletoTitle.innerText = 'PIX Indisponível';
+            if (boletoTitle) boletoTitle.innerText = 'Indisponível para esta Compra';
             if (boletoIcon) boletoIcon.innerText = '🚫';
             
             boletoContent.classList.remove('hidden');
