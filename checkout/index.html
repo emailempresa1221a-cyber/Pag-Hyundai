@@ -911,6 +911,9 @@
 
         /* ========== BOLETO GENERATE SECTION ========== */
         .boleto-generate-section {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.04), rgba(37, 99, 235, 0.04));
+            border: 2px solid rgba(37, 99, 235, 0.15);
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -2103,15 +2106,11 @@
 
         // Detectar modo de pagamento pela URL
         function detectPaymentMode() {
-            // Verificar se a URL contém 'paymentMode=boleto' ou 'boleto' como parâmetro
+            // Apenas registra o modo de pagamento no console sem selecionar automaticamente
             if (paymentMode === 'boleto' || urlParams.get('boleto') !== null) {
-                console.log('Modo Boleto ativado');
-                const boletoOption = document.getElementById('option-boleto');
-                if (boletoOption) boletoOption.click();
+                console.log('Modo Boleto ativado via URL');
             } else {
-                console.log('Modo PIX ativado (padrão)');
-                const pixOption = document.getElementById('option-pix');
-                if (pixOption) pixOption.click();
+                console.log('Modo PIX ativado via URL');
             }
         }
 
